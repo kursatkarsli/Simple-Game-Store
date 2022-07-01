@@ -1,0 +1,16 @@
+@import './header.scss';
+@import './inputbox.scss';
+@import './card.scss';
+
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    background-color: rgb(10, 42, 74);
+}
+.home-container{
+    margin-left:0 !important;
+}

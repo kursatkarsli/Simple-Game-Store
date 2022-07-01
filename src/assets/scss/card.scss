@@ -1,0 +1,18 @@
+.card{
+    background-color: #cececec4 !important;
+    padding: 10px;
+    min-height: 25rem;
+}
+.content{
+text-overflow: ellipsis;
+    word-break: break-all;
+
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.card-actions{
+    justify-content: center;
+}
