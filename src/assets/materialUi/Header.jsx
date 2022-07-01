@@ -15,6 +15,7 @@ export const StyledDiv = styled('div')(({ theme }) => ({
 export const StyledContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
+  textAlign: 'center',
 }))
 export const StyledLink = styled(Link)(() => ({
   display: 'flex',

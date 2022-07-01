@@ -47,21 +47,35 @@ function Home() {
               </Grid>
             ))
           : inputType === 'category'
-          ? fiterGamesAccordingToCategories(gamesInfo, categoryInputValue).map(
+          ? fiterGamesAccordingToCategories(
+              getDataFromLocalStorage('games'),
+              categoryInputValue
+            )?.map((game, index) => (
+              <Grid
+                item
+                xs={
+                  fiterGamesAccordingToCategories(gamesInfo, categoryInputValue)
+                    .length < 2
+                    ? 12
+                    : 3
+                }
+                sx={{ marginBlock: '30px' }}
+                key={index}
+              >
+                <CardItem
+                  image={game.Cover}
+                  title={game.Name}
+                  description={game.Summary}
+                  price={game.Price}
+                  id={game.Id}
+                  game={game}
+                />{' '}
+              </Grid>
+            ))
+          : inputType !== 'category' &&
+            filterGames(getDataFromLocalStorage('games'), InputValue)?.map(
               (game, index) => (
-                <Grid
-                  item
-                  xs={
-                    fiterGamesAccordingToCategories(
-                      gamesInfo,
-                      categoryInputValue
-                    ).length < 2
-                      ? 12
-                      : 3
-                  }
-                  sx={{ marginBlock: '30px' }}
-                  key={index}
-                >
+                <Grid item xs={12} sx={{ marginBlock: '30px' }} key={index}>
                   <CardItem
                     image={game.Cover}
                     title={game.Name}
@@ -72,20 +86,7 @@ function Home() {
                   />{' '}
                 </Grid>
               )
-            )
-          : inputType !== 'category' &&
-            filterGames(gamesInfo, InputValue).map((game, index) => (
-              <Grid item xs={12} sx={{ marginBlock: '30px' }} key={index}>
-                <CardItem
-                  image={game.Cover}
-                  title={game.Name}
-                  description={game.Summary}
-                  price={game.Price}
-                  id={game.Id}
-                  game={game}
-                />{' '}
-              </Grid>
-            ))}
+            )}
       </Grid>
     </Container>
   )

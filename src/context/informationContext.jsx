@@ -2,10 +2,11 @@ import React, { createContext, useEffect, useState } from 'react'
 import axios from 'axios'
 import { addToLocalStorage } from '../components/helper/addToLocalStorage'
 import { getDataFromLocalStorage } from '../components/helper/getFromLocalStorage'
+
 export const InformationContext = createContext()
 
 export const Information = ({ children }) => {
-  const [gamesInfo, setGamesInfo] = useState([])
+  const [isLoading, setIsLoading] = useState([])
   const [InputValue, setInputValue] = useState('')
   const [categoryInputValue, setCategoryInputValue] = useState('')
   const [inputType, setInputType] = useState('')
@@ -20,23 +21,26 @@ export const Information = ({ children }) => {
         data.map((item) => ({
           ...item,
           inBasket:
-            getDataFromLocalStorage('games').find((game) => game.Id === item.Id)
-              .inBasket === true
-              ? true
-              : false,
+            getDataFromLocalStorage('games')?.find(
+              (game) => game.Id === item.Id
+            ).inBasket === true,
+
+          isFavorite:
+            getDataFromLocalStorage('games')?.find(
+              (game) => game.Id === item.Id
+            ).isFavorite === true,
         }))
       )
+      setIsLoading(!isLoading)
     })()
-
-    setGamesInfo(getDataFromLocalStorage('games'))
   }, [])
 
   return (
     <InformationContext.Provider
       value={{
-        gamesInfo,
+        isLoading,
         InputValue,
-        setGamesInfo,
+        setIsLoading,
         setInputValue,
         inputType,
         setInputType,

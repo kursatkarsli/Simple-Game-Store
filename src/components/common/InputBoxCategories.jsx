@@ -3,6 +3,7 @@ import Autocomplete from '@mui/material/Autocomplete'
 import { CustomTextField } from '../../assets/materialUi/Inputbox'
 import { InformationContext } from '../../context/informationContext'
 import { gameCategories } from '../helper/gameCategories'
+import { useTranslation } from 'react-i18next'
 export default function FreeSoloCreateOption() {
   const {
     categoryInputValue,
@@ -10,7 +11,7 @@ export default function FreeSoloCreateOption() {
     setInputType,
     setInputValue,
   } = React.useContext(InformationContext)
-
+  const { t } = useTranslation()
   return (
     <Autocomplete
       value={categoryInputValue}
@@ -48,7 +49,7 @@ export default function FreeSoloCreateOption() {
       renderInput={(params) => (
         <CustomTextField
           {...params}
-          label='Search Game Category'
+          label={t('Search Game Category')}
           size='small'
         />
       )}

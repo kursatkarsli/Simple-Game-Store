@@ -1,4 +1,4 @@
-import React, { memo, useContext, useEffect, useState } from 'react'
+import React, { memo, useContext, useState } from 'react'
 import {
   Button,
   Card,
@@ -23,16 +23,17 @@ function CardItem(props) {
   const [isInBasket, setIsInBasket] = useState(false)
   const { addToFavorite, removeFromFavorite } = useContext(FavoritesContext)
   const { removeFromBasket, addToBasket } = useContext(BasketContext)
+  const { title, description, price, game } = props
   const { t } = useTranslation()
-  const { title, description, price, id, game } = props
-  const handleAddFavorite = () => {
-    addToFavorite(game)
-    setIsFavorite(true)
-  }
-  const handleRemoveFavorite = (game) => {
-    removeFromFavorite(game)
-    setIsFavorite(false)
-  }
+
+  // const handleAddFavorite = () => {
+  //   addToFavorite(game)
+  //   setIsFavorite(true)
+  // }
+  // const handleRemoveFavorite = (game) => {
+  //   removeFromFavorite(game)
+  //   setIsFavorite(false)
+  // }
 
   const handleAddBasket = () => {
     addToBasket(game)
@@ -44,7 +45,7 @@ function CardItem(props) {
   }
 
   const responsive = {
-    0: { items: 1 },
+    0: { items: 2 },
     568: { items: 2 },
     1024: { items: 3 },
   }
@@ -55,12 +56,11 @@ function CardItem(props) {
         <AliceCarousel
           mouseTracking
           responsive={responsive}
-          controlsStrategy='alternate'
+          autoHeight
           items={game.Screenshots.map((image, index) => (
             <StyledCardImage
               component='img'
               height='140'
-              sx={{ marginInline: '20px' }}
               key={index}
               image={image}
               alt={title}
@@ -72,13 +72,8 @@ function CardItem(props) {
         <Typography gutterBottom variant='subtitle2' component='div'>
           {title}
         </Typography>
-        <Typography
-          variant='body2'
-          color='text.secondary'
-          className='content'
-          paragraph={true}
-        >
-          {description}
+        <Typography variant='body2' color='text.secondary' paragraph={true}>
+          {t(description)}
         </Typography>
         <Typography variant='subtitle1' component='span' color='text.secondary'>
           {price}$
@@ -93,21 +88,29 @@ function CardItem(props) {
         </Typography>
       </CardContent>
       <CardActions className='card-actions'>
-        {isFavorite ? (
-          <Button size='small' color='error' onClick={handleRemoveFavorite}>
+        {game.isFavorite ? (
+          <Button
+            size='small'
+            color='error'
+            onClick={() => removeFromFavorite(game)}
+          >
             <FavoriteIcon />
           </Button>
         ) : (
-          <Button size='small' color='error' onClick={handleAddFavorite}>
+          <Button
+            size='small'
+            color='error'
+            onClick={() => addToFavorite(game)}
+          >
             <FavoriteBorderIcon />
           </Button>
         )}{' '}
-        {isInBasket ? (
-          <Button size='small' onClick={handleRemoveBasket}>
+        {game.inBasket ? (
+          <Button size='small' onClick={() => removeFromBasket(game)}>
             <ShoppingBagIcon sx={{ color: '#069901c1' }} />
           </Button>
         ) : (
-          <Button size='small' onClick={handleAddBasket}>
+          <Button size='small' onClick={() => addToBasket(game)}>
             <ShoppingBagOutlinedIcon sx={{ color: '#777777' }} />
           </Button>
         )}

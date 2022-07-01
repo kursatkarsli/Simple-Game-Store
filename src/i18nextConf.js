@@ -1,23 +1,22 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
-import translationEN from './assets/locales/tr/translationTr.json'
+import translationTR from './assets/locales/tr/translationTR.json'
 
-const fallbackLng = ['tr'];
-const availableLanguages = ['en', 'ar', 'fr'];
+const fallbackLng = ['en'];
+const availableLanguages = ['en'];
 const resources = {
     tr: {
-        translation: translationEN
+        translation: translationTR
     },
 
 };
 
 i18n
-    .use(LanguageDetector) // detect user language
-    .use(initReactI18next) // pass the i18n instance to react-i18next.
+    .use(LanguageDetector)
+    .use(initReactI18next)
     .init({
         resources,
-        fallbackLng, // fallback language is english.
 
         detection: {
             checkWhitelist: true,

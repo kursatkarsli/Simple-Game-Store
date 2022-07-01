@@ -1,14 +1,15 @@
 import React from 'react'
 
 import Header from './components/Header.jsx'
-import { Routers } from './router/routes.js';
+import { Translation } from './context/TranslationContext.jsx'
+import { Routers } from './router/routes.js'
 function App () {
   return (
-    <div >
+    <Translation>
       <Header />
       <Routers />
-    </div>
-  );
+    </Translation>
+  )
 }
 
-export default App;
+export default App

@@ -20,8 +20,6 @@ import { getDataFromLocalStorage } from './helper/getFromLocalStorage'
 import { useTranslation } from 'react-i18next'
 
 function CardItem(props) {
-  const [isFavorite, setIsFavorite] = useState(false)
-  const [isInBasket, setIsInBasket] = useState(false)
   const { addToFavorite, removeFromFavorite } = useContext(FavoritesContext)
   const { removeFromBasket, addToBasket } = useContext(BasketContext)
 
@@ -31,28 +29,19 @@ function CardItem(props) {
   const { t } = useTranslation()
   const { image, title, description, price, id, game } = props
 
-  const handleAddFavorite = () => {
-    addToFavorite(game)
-    setIsFavorite(true)
-  }
-  const handleRemoveFavorite = (game) => {
-    removeFromFavorite(game)
-    setIsFavorite(false)
-  }
+  // const handleAddFavorite = () => {
+  //   addToFavorite(game)
+  // }
+  // const handleRemoveFavorite = (game) => {
+  //   removeFromFavorite(game)
+  // }
 
   const handleAddBasket = () => {
     addToBasket(game)
-    setIsInBasket(true)
   }
   const handleRemoveBasket = () => {
     removeFromBasket(game)
-    setIsInBasket(false)
   }
-  useEffect(() => {
-    getDataFromLocalStorage('games').map(
-      (item) => item.Id === game.Id && item.inBasket && setIsInBasket(true)
-    )
-  }, [])
   return (
     <Card sx={{ maxWidth: { sm: 400, md: 400, lg: 350 } }} className='card'>
       <Stack
@@ -85,16 +74,26 @@ function CardItem(props) {
         </Typography>
       </CardContent>
       <CardActions className='card-actions'>
-        {isFavorite ? (
-          <Button size='small' color='error' onClick={handleRemoveFavorite}>
+        {game.isFavorite ? (
+          <Button
+            size='small'
+            color='error'
+            onClick={() => removeFromFavorite(game)}
+          >
             <FavoriteIcon />
+            {game.Likes}
           </Button>
         ) : (
-          <Button size='small' color='error' onClick={handleAddFavorite}>
+          <Button
+            size='small'
+            color='error'
+            onClick={() => addToFavorite(game)}
+          >
             <FavoriteBorderIcon />
+            {game.Likes}
           </Button>
         )}{' '}
-        {isInBasket ? (
+        {game.inBasket ? (
           <Button size='small' onClick={handleRemoveBasket}>
             <ShoppingBagIcon sx={{ color: '#069901c1' }} />
           </Button>

@@ -9,7 +9,6 @@ function GameInfo() {
   useEffect(() => {
     setSingleItem(JSON.parse(localStorage.getItem(params.id)))
   }, [])
-  console.log('Single', singleItem)
   return (
     <Grid container justifyContent='center' marginTop='20px'>
       {singleItem && (

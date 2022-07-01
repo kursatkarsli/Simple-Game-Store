@@ -3,16 +3,12 @@ import Autocomplete from '@mui/material/Autocomplete'
 import { CustomTextField } from '../../assets/materialUi/Inputbox'
 import { InformationContext } from '../../context/informationContext'
 import { getDataFromLocalStorage } from '../helper/getFromLocalStorage'
+import { useTranslation } from 'react-i18next'
 
 export default function FreeSoloCreateOption() {
-  const {
-    InputValue,
-    setInputValue,
-    gamesInfo,
-    setInputType,
-    setCategoryInputValue,
-  } = React.useContext(InformationContext)
-
+  const { InputValue, setInputValue, setInputType, setCategoryInputValue } =
+    React.useContext(InformationContext)
+  const { t } = useTranslation()
   return (
     <Autocomplete
       value={InputValue}
@@ -35,7 +31,7 @@ export default function FreeSoloCreateOption() {
       clearOnBlur
       handleHomeEndKeys
       id='free-solo-with-text-demo'
-      options={getDataFromLocalStorage('games')}
+      options={getDataFromLocalStorage('games') ?? []}
       getOptionLabel={(option) => {
         if (typeof option === 'string') {
           return option
@@ -49,7 +45,7 @@ export default function FreeSoloCreateOption() {
       sx={{ width: 400, marginRight: '20px' }}
       freeSolo
       renderInput={(params) => (
-        <CustomTextField {...params} label='Search Game' size='small' />
+        <CustomTextField {...params} label={t('Search Game')} size='small' />
       )}
     />
   )

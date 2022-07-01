@@ -1,20 +1,46 @@
-import React, { createContext, useState } from 'react'
+import React, { createContext, useContext } from 'react'
+import { addToLocalStorage } from '../components/helper/addToLocalStorage'
+import { getDataFromLocalStorage } from '../components/helper/getFromLocalStorage'
+import { InformationContext } from './informationContext'
 
 export const FavoritesContext = createContext()
 
 export const Favorites = ({ children }) => {
-  const [favorites, setFavorites] = useState([])
+  const { setIsLoading, isLoading } = useContext(InformationContext)
+
   const addToFavorite = (game) => {
-    setFavorites([...favorites, game])
+    addToLocalStorage(
+      'games',
+      getDataFromLocalStorage('games').map((singleGame) =>
+        singleGame.Id === game.Id
+          ? {
+              ...singleGame,
+              isFavorite: true,
+              Likes: singleGame.Likes + 1,
+            }
+          : singleGame
+      )
+    )
+    setIsLoading(!isLoading)
   }
   const removeFromFavorite = (game) => {
-    setFavorites(favorites.filter((item) => game.Id === item.Id))
+    addToLocalStorage(
+      'games',
+      getDataFromLocalStorage('games').map((singleGame) =>
+        singleGame.Id === game.Id
+          ? {
+              ...singleGame,
+              isFavorite: false,
+              Likes: singleGame.Likes - 1,
+            }
+          : singleGame
+      )
+    )
+    setIsLoading(!isLoading)
   }
 
   return (
-    <FavoritesContext.Provider
-      value={{ favorites, addToFavorite, removeFromFavorite }}
-    >
+    <FavoritesContext.Provider value={{ addToFavorite, removeFromFavorite }}>
       {children}
     </FavoritesContext.Provider>
   )

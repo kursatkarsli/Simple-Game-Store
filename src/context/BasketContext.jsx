@@ -6,33 +6,33 @@ import { InformationContext } from './informationContext'
 export const BasketContext = createContext()
 
 export const Basket = ({ children }) => {
-  const [basket, setBasket] = useState([])
-  const { setGamesInfo } = useContext(InformationContext)
+  const { setIsLoading, isLoading } = useContext(InformationContext)
+
   const addToBasket = (game) => {
     addToLocalStorage(
       'games',
-      getDataFromLocalStorage('games')?.map((singleGame) =>
+      getDataFromLocalStorage('games').map((singleGame) =>
         singleGame.Id === game.Id
           ? { ...singleGame, inBasket: true }
           : singleGame
       )
     )
-    setGamesInfo(true)
+    setIsLoading(!isLoading)
   }
   const removeFromBasket = (game) => {
     addToLocalStorage(
       'games',
-      getDataFromLocalStorage('games')?.map((singleGame) =>
+      getDataFromLocalStorage('games').map((singleGame) =>
         singleGame.Id === game.Id
           ? { ...singleGame, inBasket: false }
           : singleGame
       )
     )
-    setGamesInfo(false)
+    setIsLoading(!isLoading)
   }
 
   return (
-    <BasketContext.Provider value={{ basket, addToBasket, removeFromBasket }}>
+    <BasketContext.Provider value={{ addToBasket, removeFromBasket }}>
       {children}
     </BasketContext.Provider>
   )
