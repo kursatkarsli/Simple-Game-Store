@@ -16,8 +16,8 @@ import ShoppingBagIcon from '@mui/icons-material/ShoppingBag'
 import { BasketContext } from '../context/BasketContext'
 import { addToLocalStorage } from './helper/addToLocalStorage'
 import CustomModal from './common/Modal'
-import { getDataFromLocalStorage } from './helper/getFromLocalStorage'
 import { useTranslation } from 'react-i18next'
+import { getDataFromLocalStorage } from './helper/getFromLocalStorage'
 
 function CardItem(props) {
   const { addToFavorite, removeFromFavorite } = useContext(FavoritesContext)
@@ -28,13 +28,6 @@ function CardItem(props) {
   const handleClose = () => setOpen(false)
   const { t } = useTranslation()
   const { image, title, description, price, id, game } = props
-
-  // const handleAddFavorite = () => {
-  //   addToFavorite(game)
-  // }
-  // const handleRemoveFavorite = (game) => {
-  //   removeFromFavorite(game)
-  // }
 
   const handleAddBasket = () => {
     addToBasket(game)
@@ -93,14 +86,19 @@ function CardItem(props) {
             {game.Likes}
           </Button>
         )}{' '}
-        {game.inBasket ? (
-          <Button size='small' onClick={handleRemoveBasket}>
-            <ShoppingBagIcon sx={{ color: '#069901c1' }} />
-          </Button>
-        ) : (
-          <Button size='small' onClick={handleAddBasket}>
-            <ShoppingBagOutlinedIcon sx={{ color: '#777777' }} />
-          </Button>
+        {getDataFromLocalStorage('isUserLogIn') && (
+          <>
+            {' '}
+            {game.inBasket ? (
+              <Button size='small' onClick={handleRemoveBasket}>
+                <ShoppingBagIcon sx={{ color: '#069901c1' }} />
+              </Button>
+            ) : (
+              <Button size='small' onClick={handleAddBasket}>
+                <ShoppingBagOutlinedIcon sx={{ color: '#777777' }} />
+              </Button>
+            )}
+          </>
         )}
       </CardActions>
       <CustomModal open={open} handleClose={handleClose} game={game} />

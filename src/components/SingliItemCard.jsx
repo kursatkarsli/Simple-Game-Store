@@ -17,6 +17,7 @@ import { BasketContext } from '../context/BasketContext'
 import { useTranslation } from 'react-i18next'
 import AliceCarousel from 'react-alice-carousel'
 import 'react-alice-carousel/lib/alice-carousel.css'
+import { getDataFromLocalStorage } from './helper/getFromLocalStorage'
 
 function CardItem(props) {
   const [isFavorite, setIsFavorite] = useState(false)
@@ -105,14 +106,18 @@ function CardItem(props) {
             <FavoriteBorderIcon />
           </Button>
         )}{' '}
-        {game.inBasket ? (
-          <Button size='small' onClick={() => removeFromBasket(game)}>
-            <ShoppingBagIcon sx={{ color: '#069901c1' }} />
-          </Button>
-        ) : (
-          <Button size='small' onClick={() => addToBasket(game)}>
-            <ShoppingBagOutlinedIcon sx={{ color: '#777777' }} />
-          </Button>
+        {getDataFromLocalStorage('isUserLogIn') && (
+          <>
+            {game.inBasket ? (
+              <Button size='small' onClick={() => removeFromBasket(game)}>
+                <ShoppingBagIcon sx={{ color: '#069901c1' }} />
+              </Button>
+            ) : (
+              <Button size='small' onClick={() => addToBasket(game)}>
+                <ShoppingBagOutlinedIcon sx={{ color: '#777777' }} />
+              </Button>
+            )}
+          </>
         )}
       </CardActions>
     </Card>

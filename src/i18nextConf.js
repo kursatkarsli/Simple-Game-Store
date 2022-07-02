@@ -3,12 +3,14 @@ import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import translationTR from './assets/locales/tr/translationTR.json'
 
-const fallbackLng = ['en'];
 const availableLanguages = ['en'];
 const resources = {
     tr: {
         translation: translationTR
     },
+    en: {
+
+    }
 
 };
 
@@ -17,6 +19,7 @@ i18n
     .use(initReactI18next)
     .init({
         resources,
+        lng: 'en',
 
         detection: {
             checkWhitelist: true,

@@ -7,13 +7,15 @@ import { Basket } from '../context/BasketContext'
 
 function MainPage() {
   return (
-    <Information>
-      <Favorites>
-        <Basket>
-          <Outlet />
-        </Basket>
-      </Favorites>
-    </Information>
+    <>
+      <Information>
+        <Favorites>
+          <Basket>
+            <Outlet />
+          </Basket>
+        </Favorites>
+      </Information>
+    </>
   )
 }
 

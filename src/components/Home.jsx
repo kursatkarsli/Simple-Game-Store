@@ -12,7 +12,7 @@ import {
 import { getDataFromLocalStorage } from './helper/getFromLocalStorage'
 
 function Home() {
-  const { InputValue, gamesInfo, inputType, categoryInputValue } =
+  const { InputValue, inputType, categoryInputValue } =
     useContext(InformationContext)
 
   return (
@@ -54,8 +54,10 @@ function Home() {
               <Grid
                 item
                 xs={
-                  fiterGamesAccordingToCategories(gamesInfo, categoryInputValue)
-                    .length < 2
+                  fiterGamesAccordingToCategories(
+                    getDataFromLocalStorage('games'),
+                    categoryInputValue
+                  ).length < 2
                     ? 12
                     : 3
                 }

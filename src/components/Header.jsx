@@ -1,32 +1,32 @@
-import { ShoppingBasket } from '@mui/icons-material'
 import { useContext, useState } from 'react'
-import StorefrontIcon from '@mui/icons-material/Storefront'
-import {
-  Button,
-  FormControl,
-  InputLabel,
-  Link,
-  Menu,
-  MenuItem,
-  NativeSelect,
-  Select,
-  Typography,
-} from '@mui/material'
+import { TranslationContext } from '../context/TranslationContext'
+import { Button, Link, Menu, MenuItem, Typography } from '@mui/material'
 import {
   StyledDiv,
   StyledContainer,
   StyledLink,
 } from '../assets/materialUi/Header.jsx'
-import LoginIcon from '@mui/icons-material/Login'
-import { useTranslation } from 'react-i18next'
 import { SelectBox } from '../assets/materialUi/SelectBox.jsx'
-import { TranslationContext } from '../context/TranslationContext'
+import { useTranslation } from 'react-i18next'
+import LoginIcon from '@mui/icons-material/Login'
+import { ShoppingBasket } from '@mui/icons-material'
+import StorefrontIcon from '@mui/icons-material/Storefront'
+import BadgeIcon from '@mui/icons-material/Badge'
+import { getDataFromLocalStorage } from './helper/getFromLocalStorage'
+import { LoginContext } from '../context/LoginContext'
+import { Navigate } from 'react-router-dom'
 
 const Header = () => {
   const [open, setIsOpen] = useState(false)
-  const [language, setLanguage] = useState('tr')
+  const [language, setLanguage] = useState('en')
   const { t } = useTranslation()
   const { handleChangeLanguage } = useContext(TranslationContext)
+  const { login, setLogin } = useContext(LoginContext)
+
+  const handleLogOut = () => {
+    localStorage.removeItem('isUserLogIn')
+    setLogin(false)
+  }
 
   return (
     <StyledDiv className='header'>
@@ -55,87 +55,187 @@ const Header = () => {
           }}
           variant='outlined'
         >
-          <MenuItem value='tr' selected>
-            TR
+          <MenuItem value='en' selected>
+            EN
           </MenuItem>
-          <MenuItem value='en'>EN</MenuItem>
+          <MenuItem value='tr'>TR</MenuItem>
         </SelectBox>
-        <Link
-          underline='none'
-          href='/checkoutPage'
-          color='white'
-          sx={{ ':hover': { color: 'greenyellow' } }}
-        >
-          {' '}
-          <Typography
-            className='nav_item'
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              marginInline: '20px',
-            }}
-          >
-            <Typography variant='span' sx={{ fontSize: '.7rem' }}>
-              <LoginIcon />
-            </Typography>
-            <Typography
-              variant='span'
-              sx={{ fontSize: '.8rem', textAlign: 'center' }}
+        {!login && (
+          <>
+            <Link
+              underline='none'
+              href='/login'
+              color='white'
+              sx={{ ':hover': { color: 'greenyellow' } }}
             >
-              {t('Sign In')}
-            </Typography>
-          </Typography>
-        </Link>
-        <Link
-          underline='none'
-          href='/checkoutPage'
-          color='white'
-          sx={{ ':hover': { color: 'greenyellow' } }}
+              {' '}
+              <Typography
+                className='nav_item'
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                }}
+              >
+                <Typography variant='span' sx={{ fontSize: '.7rem' }}>
+                  <LoginIcon />
+                </Typography>
+                <Typography
+                  variant='span'
+                  sx={{ fontSize: '.8rem', textAlign: 'center' }}
+                >
+                  {t('Sign In')}
+                </Typography>
+              </Typography>
+            </Link>
+            <Link
+              underline='none'
+              href='/register'
+              color='white'
+              sx={{ ':hover': { color: 'greenyellow' } }}
+            >
+              {' '}
+              <Typography
+                className='nav_item'
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  marginInline: '20px',
+                }}
+              >
+                <Typography variant='span' sx={{ fontSize: '.7rem' }}>
+                  <BadgeIcon />
+                </Typography>
+                <Typography
+                  variant='span'
+                  sx={{ fontSize: '.8rem', textAlign: 'center' }}
+                >
+                  {t('Sign Up')}
+                </Typography>
+              </Typography>
+            </Link>
+          </>
+        )}
+        {login && (
+          <>
+            <Link
+              underline='none'
+              href='/'
+              onClick={handleLogOut}
+              color='white'
+              sx={{ ':hover': { color: 'greenyellow' } }}
+            >
+              <Typography
+                className='nav_item'
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  marginRight: '1rem',
+                  alignItems: 'center',
+                }}
+              >
+                {' '}
+                <LoginIcon fontSize='medium' />
+                <span>{t('Log Out')}</span>
+              </Typography>
+            </Link>
+            <Link
+              underline='none'
+              href='/library'
+              color='white'
+              sx={{ ':hover': { color: 'greenyellow' } }}
+            >
+              <Typography
+                className='nav_item'
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  marginRight: '1rem',
+                  alignItems: 'center',
+                }}
+              >
+                {' '}
+                <ShoppingBasket fontSize='medium' />
+                <span>0</span>
+              </Typography>
+            </Link>
+          </>
+        )}
+      </StyledContainer>
+      {getDataFromLocalStorage('isUserLogIn') === true ? (
+        <StyledContainer
+          sx={{ display: { lg: 'none', xs: 'flex' }, position: 'relative' }}
+          onClick={() => setIsOpen(!open)}
         >
-          <Typography
-            className='nav_item'
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              marginRight: '1rem',
-              alignItems: 'center',
+          <Button
+            id='demo-positioned-button'
+            aria-controls={open ? 'demo-positioned-menu' : undefined}
+            aria-haspopup='true'
+            aria-expanded={open ? 'true' : undefined}
+          ></Button>
+          <Menu
+            id='demo-positioned-menu'
+            aria-labelledby='demo-positioned-button'
+            open={open}
+            onClose={(e) => setIsOpen(false)}
+            anchorOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
             }}
           >
-            {' '}
-            <ShoppingBasket fontSize='medium' />
-            <span>0</span>
-          </Typography>
-        </Link>
-      </StyledContainer>
-      <StyledContainer
-        sx={{ display: { lg: 'none', xs: 'flex' }, position: 'relative' }}
-        onClick={() => setIsOpen(!open)}
-      >
-        <Button
-          id='demo-positioned-button'
-          aria-controls={open ? 'demo-positioned-menu' : undefined}
-          aria-haspopup='true'
-          aria-expanded={open ? 'true' : undefined}
-        ></Button>
-        <Menu
-          id='demo-positioned-menu'
-          aria-labelledby='demo-positioned-button'
-          open={open}
-          onClose={(e) => setIsOpen(false)}
-          anchorOrigin={{
-            vertical: 'top',
-            horizontal: 'right',
-          }}
-          transformOrigin={{
-            vertical: 'top',
-            horizontal: 'right',
-          }}
+            <MenuItem
+              onClick={() => {
+                setIsOpen(false)
+                ;<Navigate to='library' />
+              }}
+            >
+              {t('My library')}
+            </MenuItem>
+            <MenuItem onClick={() => handleLogOut()}>Logout</MenuItem>
+          </Menu>
+        </StyledContainer>
+      ) : (
+        <StyledContainer
+          sx={{ display: { lg: 'none', xs: 'flex' }, position: 'relative' }}
+          onClick={() => setIsOpen(!open)}
         >
-          <MenuItem onClick={() => setIsOpen(false)}>Profile</MenuItem>
-          <MenuItem onClick={() => setIsOpen(false)}>My account</MenuItem>
-          <MenuItem onClick={() => setIsOpen(false)}>Logout</MenuItem>
-        </Menu>
-      </StyledContainer>
+          <Button
+            id='demo-positioned-button'
+            aria-controls={open ? 'demo-positioned-menu' : undefined}
+            aria-haspopup='true'
+            aria-expanded={open ? 'true' : undefined}
+          ></Button>
+          <Menu
+            id='demo-positioned-menu'
+            aria-labelledby='demo-positioned-button'
+            open={open}
+            onClose={(e) => setIsOpen(false)}
+            anchorOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+          >
+            <MenuItem onClick={() => setIsOpen(false)}>
+              <Link underline='none' href='/login'>
+                {t('Sign In')}
+              </Link>
+            </MenuItem>
+            <MenuItem onClick={() => setIsOpen(false)}>
+              {' '}
+              <Link underline='none' href='/register'>
+                {t('Sign Up')}
+              </Link>
+            </MenuItem>
+          </Menu>
+        </StyledContainer>
+      )}
     </StyledDiv>
   )
 }
