@@ -20,5 +20,9 @@ after that you have to sing in than you will redirect to home page.
 
 You can add games to your library or you can like games.
 
+
+You can reach out live demo from :
+simple-store-q268ozv22-kursatkarsli.vercel.app
+
 Happy Coding... 
 
