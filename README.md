@@ -4,7 +4,7 @@ Open terminal and run
 
 git clone https://github.com/kursatkarsli/Simple-Game-Store-Multilanguage.git
 
-You will get project to your local than
+You will get project to your computer than in the terminal write the following codes
 
 npm install
 
