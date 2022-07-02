@@ -40,7 +40,6 @@ const RegisterPage = () => {
               type='email'
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              sx={{ background: 'white' }}
             />
           </Grid>
           <Grid item sm={12}>

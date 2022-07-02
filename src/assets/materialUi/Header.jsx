@@ -5,7 +5,7 @@ export const StyledDiv = styled('div')(({ theme }) => ({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
-  backgroundColor: '#303f65',
+  backgroundColor: '#4D4C7D',
   color: 'white',
   padding: '10px',
   position: 'sticky',
@@ -20,5 +20,5 @@ export const StyledContainer = styled('div')(({ theme }) => ({
 export const StyledLink = styled(Link)(() => ({
   display: 'flex',
   alignItems: 'center',
-  color: 'orange',
+  color: '#E9D5CA',
 }))

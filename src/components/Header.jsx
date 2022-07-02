@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { TranslationContext } from '../context/TranslationContext'
 import { Button, Link, Menu, MenuItem, Typography } from '@mui/material'
 import {
@@ -18,7 +18,7 @@ import { Navigate } from 'react-router-dom'
 
 const Header = () => {
   const [open, setIsOpen] = useState(false)
-  const [language, setLanguage] = useState('en')
+  const [language, setLanguage] = useState('tr')
   const { t } = useTranslation()
   const { handleChangeLanguage } = useContext(TranslationContext)
   const { login, setLogin } = useContext(LoginContext)
@@ -55,10 +55,10 @@ const Header = () => {
           }}
           variant='outlined'
         >
-          <MenuItem value='en' selected>
-            EN
+          <MenuItem value='tr' selected>
+            TR
           </MenuItem>
-          <MenuItem value='tr'>TR</MenuItem>
+          <MenuItem value='en'>EN</MenuItem>
         </SelectBox>
         {!login && (
           <>
@@ -119,6 +119,26 @@ const Header = () => {
           <>
             <Link
               underline='none'
+              href='/library'
+              color='white'
+              sx={{ ':hover': { color: 'greenyellow' } }}
+            >
+              <Typography
+                className='nav_item'
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  marginRight: '1rem',
+                  alignItems: 'center',
+                }}
+              >
+                {' '}
+                <ShoppingBasket fontSize='medium' />
+                <span>{t('My Library')}</span>
+              </Typography>
+            </Link>
+            <Link
+              underline='none'
               href='/'
               onClick={handleLogOut}
               color='white'
@@ -136,26 +156,6 @@ const Header = () => {
                 {' '}
                 <LoginIcon fontSize='medium' />
                 <span>{t('Log Out')}</span>
-              </Typography>
-            </Link>
-            <Link
-              underline='none'
-              href='/library'
-              color='white'
-              sx={{ ':hover': { color: 'greenyellow' } }}
-            >
-              <Typography
-                className='nav_item'
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  marginRight: '1rem',
-                  alignItems: 'center',
-                }}
-              >
-                {' '}
-                <ShoppingBasket fontSize='medium' />
-                <span>0</span>
               </Typography>
             </Link>
           </>
@@ -189,12 +189,12 @@ const Header = () => {
             <MenuItem
               onClick={() => {
                 setIsOpen(false)
-                ;<Navigate to='library' />
+                ;<Navigate to='/library' />
               }}
             >
               {t('My library')}
             </MenuItem>
-            <MenuItem onClick={() => handleLogOut()}>Logout</MenuItem>
+            <MenuItem onClick={() => handleLogOut()}>{t('Log Out')}</MenuItem>
           </Menu>
         </StyledContainer>
       ) : (

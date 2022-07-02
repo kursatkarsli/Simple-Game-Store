@@ -1,6 +1,6 @@
 import React from "react";
-import { Navigate, Route, Routes } from "react-router-dom";
-import GameInfo from "../components/GameInfo";
+import { Route, Routes } from "react-router-dom";
+import Library from "../components/Library";
 import MainPage from '../components/MainPage'
 import RegisterPage from "../components/Register";
 import Login from "../components/Login";
@@ -13,7 +13,7 @@ export const Routers = () => (
 
         <Route exact path='/' element={<MainPage />} >
             <Route path='/' element={<Home />} />
-            <Route path='item/:id' element={<GameInfo />} />
+            <Route path='library' element={<Library />} />
         </Route>
         <Route path='/login' element={<Login />} />
         <Route path="/register" element={<RegisterPage />} />

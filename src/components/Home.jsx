@@ -22,7 +22,6 @@ function Home() {
           <CustomStack direction='row'>
             <InputBox />
             <InputBoxCategories />
-            <h3 style={{ color: 'white' }}>{InputValue}</h3>
           </CustomStack>
         </Grid>
 

@@ -18,10 +18,12 @@ import { addToLocalStorage } from './helper/addToLocalStorage'
 import CustomModal from './common/Modal'
 import { useTranslation } from 'react-i18next'
 import { getDataFromLocalStorage } from './helper/getFromLocalStorage'
+import { LibraryContext } from '../context/LibraryContext'
 
 function CardItem(props) {
   const { addToFavorite, removeFromFavorite } = useContext(FavoritesContext)
   const { removeFromBasket, addToBasket } = useContext(BasketContext)
+  const { setLibrary } = useContext(LibraryContext)
 
   const [open, setOpen] = React.useState(false)
   const handleOpen = () => setOpen(true)
@@ -31,9 +33,15 @@ function CardItem(props) {
 
   const handleAddBasket = () => {
     addToBasket(game)
+    setLibrary(
+      getDataFromLocalStorage('games')?.filter((item) => item.inBasket === true)
+    )
   }
   const handleRemoveBasket = () => {
     removeFromBasket(game)
+    setLibrary(
+      getDataFromLocalStorage('games')?.filter((item) => item.inBasket === true)
+    )
   }
   return (
     <Card sx={{ maxWidth: { sm: 400, md: 400, lg: 350 } }} className='card'>
@@ -51,7 +59,12 @@ function CardItem(props) {
         />
       </Stack>
       <CardContent>
-        <Typography gutterBottom variant='subtitle2' component='div'>
+        <Typography
+          gutterBottom
+          variant='subtitle1'
+          component='div'
+          sx={{ fontWeight: '600' }}
+        >
           {title}
         </Typography>
         <Typography

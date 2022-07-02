@@ -4,5 +4,4 @@ export const CustomCard = styled(Card)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   padding: '50px',
-  backgroundColor: '#cececec4 ',
 }))

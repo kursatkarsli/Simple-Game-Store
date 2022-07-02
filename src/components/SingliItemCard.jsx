@@ -20,30 +20,10 @@ import 'react-alice-carousel/lib/alice-carousel.css'
 import { getDataFromLocalStorage } from './helper/getFromLocalStorage'
 
 function CardItem(props) {
-  const [isFavorite, setIsFavorite] = useState(false)
-  const [isInBasket, setIsInBasket] = useState(false)
   const { addToFavorite, removeFromFavorite } = useContext(FavoritesContext)
   const { removeFromBasket, addToBasket } = useContext(BasketContext)
   const { title, description, price, game } = props
   const { t } = useTranslation()
-
-  // const handleAddFavorite = () => {
-  //   addToFavorite(game)
-  //   setIsFavorite(true)
-  // }
-  // const handleRemoveFavorite = (game) => {
-  //   removeFromFavorite(game)
-  //   setIsFavorite(false)
-  // }
-
-  const handleAddBasket = () => {
-    addToBasket(game)
-    setIsInBasket(true)
-  }
-  const handleRemoveBasket = (game) => {
-    removeFromBasket(game)
-    setIsInBasket(false)
-  }
 
   const responsive = {
     0: { items: 2 },
@@ -52,7 +32,7 @@ function CardItem(props) {
   }
 
   return (
-    <Card sx={{ maxWidth: { sm: 600 } }} className='card'>
+    <Card sx={{ maxWidth: { sm: 600 } }} className='single-card'>
       <Stack direction='row'>
         <AliceCarousel
           mouseTracking
@@ -70,7 +50,12 @@ function CardItem(props) {
         />
       </Stack>
       <CardContent>
-        <Typography gutterBottom variant='subtitle2' component='div'>
+        <Typography
+          gutterBottom
+          variant='subtitle2'
+          component='div'
+          sx={{ fontWeight: '600' }}
+        >
           {title}
         </Typography>
         <Typography variant='body2' color='text.secondary' paragraph={true}>
@@ -85,7 +70,14 @@ function CardItem(props) {
           color='text.secondary'
           sx={{ float: 'right' }}
         >
-          {t('Release Date')}: {new Date(game.ReleaseDate).toDateString()}
+          {t('Release Date')}:{' '}
+          {`${t(
+            new Date(game.ReleaseDate).toLocaleString('default', {
+              month: 'long',
+            })
+          )}-${new Date(game.ReleaseDate).getDate()}-${new Date(
+            game.ReleaseDate
+          ).getFullYear()}`}
         </Typography>
       </CardContent>
       <CardActions className='card-actions'>
@@ -96,6 +88,7 @@ function CardItem(props) {
             onClick={() => removeFromFavorite(game)}
           >
             <FavoriteIcon />
+            {game.Likes}
           </Button>
         ) : (
           <Button
@@ -104,6 +97,7 @@ function CardItem(props) {
             onClick={() => addToFavorite(game)}
           >
             <FavoriteBorderIcon />
+            {game.Likes}
           </Button>
         )}{' '}
         {getDataFromLocalStorage('isUserLogIn') && (

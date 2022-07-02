@@ -2,6 +2,7 @@ import React, { createContext, useEffect, useState } from 'react'
 import axios from 'axios'
 import { addToLocalStorage } from '../components/helper/addToLocalStorage'
 import { getDataFromLocalStorage } from '../components/helper/getFromLocalStorage'
+import { Library } from './LibraryContext'
 
 export const InformationContext = createContext()
 
@@ -31,6 +32,7 @@ export const Information = ({ children }) => {
             ).isFavorite === true,
         }))
       )
+
       setIsLoading(!isLoading)
     })()
   }, [])
@@ -48,7 +50,7 @@ export const Information = ({ children }) => {
         setCategoryInputValue,
       }}
     >
-      {children}
+      <Library>{children}</Library>
     </InformationContext.Provider>
   )
 }

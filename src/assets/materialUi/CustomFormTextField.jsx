@@ -2,9 +2,10 @@ import { TextField } from '@mui/material'
 import { styled } from '@mui/system'
 
 export const CustomTextField = styled(TextField)(({ theme }) => ({
-  color: 'white',
-  backgroundColor: '#494949',
-  '::placeholder': { backgroundColor: 'white' },
+  color: 'black',
+  backgroundColor: 'white',
+  '::placeholder': { backgroundColor: 'white', color: 'black' },
   borderRadius: '10px',
+  border: '1px solid black',
   marginBlock: '10px',
 }))

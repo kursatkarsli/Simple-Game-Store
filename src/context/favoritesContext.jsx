@@ -2,11 +2,13 @@ import React, { createContext, useContext } from 'react'
 import { addToLocalStorage } from '../components/helper/addToLocalStorage'
 import { getDataFromLocalStorage } from '../components/helper/getFromLocalStorage'
 import { InformationContext } from './informationContext'
+import { LibraryContext } from './LibraryContext'
 
 export const FavoritesContext = createContext()
 
 export const Favorites = ({ children }) => {
   const { setIsLoading, isLoading } = useContext(InformationContext)
+  const { setLibrary } = useContext(LibraryContext)
 
   const addToFavorite = (game) => {
     addToLocalStorage(
@@ -20,6 +22,9 @@ export const Favorites = ({ children }) => {
             }
           : singleGame
       )
+    )
+    setLibrary(
+      getDataFromLocalStorage('games')?.filter((item) => item.inBasket === true)
     )
     setIsLoading(!isLoading)
   }
@@ -35,6 +40,9 @@ export const Favorites = ({ children }) => {
             }
           : singleGame
       )
+    )
+    setLibrary(
+      getDataFromLocalStorage('games')?.filter((item) => item.inBasket === true)
     )
     setIsLoading(!isLoading)
   }
