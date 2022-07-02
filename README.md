@@ -35,8 +35,8 @@ You can add games to your library or you can like games.
 
 
 You can reach out live demo from : <br/>
-[Simple Game Store](simple-store-q268ozv22-kursatkarsli.vercel.app)
+[[Simple Game Store](simple-store-q268ozv22-kursatkarsli.vercel.app)](https://simple-store-oh5bo3ytc-kursatkarsli.vercel.app/)
 
 Happy Coding... 
 
->>>>>>> 9111425697ad56869b3884c0fe0bc7c8e971edc5
+
