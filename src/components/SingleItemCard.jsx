@@ -19,7 +19,7 @@ import AliceCarousel from 'react-alice-carousel'
 import 'react-alice-carousel/lib/alice-carousel.css'
 import { getDataFromLocalStorage } from './helper/getFromLocalStorage'
 
-function CardItem(props) {
+function SingleCartItem(props) {
   const { addToFavorite, removeFromFavorite } = useContext(FavoritesContext)
   const { removeFromBasket, addToBasket } = useContext(BasketContext)
   const { title, description, price, game } = props
@@ -118,4 +118,4 @@ function CardItem(props) {
   )
 }
 
-export default memo(CardItem)
+export default memo(SingleCartItem)
