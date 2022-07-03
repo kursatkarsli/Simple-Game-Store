@@ -23,7 +23,7 @@ function Home() {
       justifyContent='center'
       alignItems='center'
     >
-      <Grid item xs={12}>
+      <Grid item xs={12} sx={{ marginX: { xs: '0', sm: '10px' } }}>
         <CustomStack direction={{ xs: 'column', sm: 'row' }}>
           <InputBox />
           <InputBoxCategories />
